@@ -1,0 +1,78 @@
+<div class="container" *ngIf="Mode == 'Design'">
+  <form [formGroup]="chartForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3 mt-3 row">
+      <div class="col-md-6">
+        <label for="select-data-type" class="form-label"
+          >Choose Data To Plot</label
+        >
+        <select
+          formControlName="dataType"
+          class="form-select"
+          id="select-data-type"
+        >
+          <option *ngFor="let dt of DataTypes" [ngValue]="dt.value">
+            {{ dt.label || dt.value }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="select-palette" class="form-label"
+          >Select Chart Palette</label
+        >
+        <select
+          formControlName="palette"
+          class="form-select"
+          id="select-palette"
+        >
+          <option *ngFor="let dt of ChartPalettes" [ngValue]="dt.value">
+            {{ dt.label || dt.value }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-6">
+        <label for="select-plot-type" class="form-label"
+          >Choose Plot Type</label
+        >
+        <select
+          formControlName="plotType"
+          class="form-select"
+          id="select-plot-type"
+        >
+          <option *ngFor="let pt of PlotTypes" [ngValue]="pt.value">
+            {{ pt.label || pt.value }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-check">
+          <input
+            type="checkbox"
+            formControlName="grouping"
+            id="isGroupingEnabled"
+            class="form-check-input"
+          />
+          <label for="isGroupingEnabled" class="form-check-label"
+            >Group By Sales Channel</label
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button
+          type="submit"
+          [disabled]="!chartForm.valid"
+          class="btn btn-success btn-block"
+        >
+          Create Report
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div id="viewer-host" *ngIf="Mode == 'Preview'">
+  <gc-activereports-viewer (init)="onViewerInit()"> </gc-activereports-viewer>
+</div>
